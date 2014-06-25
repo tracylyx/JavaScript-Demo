@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		li { list-style: none; }
+		.list1 { width: 80px; height: 30px; background: #f1f1f1; text-align: center;line-height: 30px; border: 1px solid #333; position: relative; }
+		.list1 a { text-decoration: none; color: black; }
+		ul ul { padding: 0; margin: 0; display: none; }
+		ul ul li { width: 100px; height: 30px; line-height: 30px; text-align: center; background: yellow; cursor: pointer; }
+		#ul1 { border: 1px solid yellow; width: 100px; position: absolute; left: -1px; top: 31px; }
+	</style>
+	<script>
+		window.onload = function(){
+			var oLi1 = document.getElementById('lis');
+			var oBtn = document.getElementById('btn');
+			var oUl = document.getElementById('ul1');
+			var oLi2 = oUl.getElementsByTagName('li');
+			// console.log(oLi2.length);
+
+			oLi1.onmouseover = function show(){
+				oUl.style.display = 'block';
+				oBtn.style.color = 'red';
+
+				for(var i = 0; i<oLi2.length; i++){
+						oLi2[i].index = i;
+						var j = i+1;
+						// alert(j);
+						// oLi2[j].onmouseover = setColor(j);
+
+						// var j = i+1;
+						// console.log(j);
+						// oLi2[j].style.color = 'red';
+					}
+			};
+
+			oLi1.onmouseout = function hide(){
+				oUl.style.display = 'none';
+				oBtn.style.color = '';
+			};
+
+			// function setColor(j){
+			// 	oLi2[j].style.color = 'red';
+			// }
+		};
+	</script>
+</head>
+<body>
+	<ul>
+		<li id="lis" class="list1">
+			<a href="javascript:;" id="btn">微博</a>
+			<ul id="ul1">
+				<li>评论</li>
+				<li>转发</li>
+				<li>@我</li>
+			</ul>
+		</li>
+	</ul>
+</body>
+</html>
