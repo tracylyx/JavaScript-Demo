@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>demo</title>
+	<style>
+		body { padding: 0px; margin: 0px; overflow: hidden; }
+		canvas {
+			min-width: 100%;
+			position: absolute;
+			z-index: -1;
+			/*display: inline-block;*/
+			/*vertical-align: baseline;*/
+		}
+		#first {
+			width: 100%;
+			min-height: 100vh;
+			/*display: flex;*/
+			overflow: hidden;
+		}
+		#content {
+			width: 100px;
+			padding: 4rem 1rem;
+			position: absolute;
+			margin: 0 auto;
+			z-index: 1;
+		}
+	</style>
+	
+</head>
+<body>
+	<div id="first">
+		<div id="content">
+			<p>hello</p>
+		</div>
+	</div>
+	<script src="trianglify.min.js"></script>
+	<script>
+	var oFirst = document.getElementById('first');
+	var pattern = Trianglify({
+		height: window.innerHeight,
+		width: window.innerWidth,
+		x_colors: 'PRGn',
+		cell_size: 55
+	});
+	oFirst.appendChild(pattern.canvas());
+	</script>
+</body>
+</html>
