@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>innerHTML</title>
+	<script>
+	window.onload = function() {
+		var oBox = document.getElementById('box');
+		console.log(oBox.innerText);
+		oBox.getElementsByTagName[2].innerText = "hello world";
+	};
+	</script>
+</head>
+<body>
+	<div id="box">
+		<p>文章</p>
+		<ul>
+			<li>1111</li>
+			<li>2222</li>
+			<li>3333</li>
+		</ul>
+	</div>
+</body>
+</html>

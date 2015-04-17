@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>DOM2级事件处理程序</title>
+	<script>
+		window.onload = function() {
+			var oBtn = document.getElementById('btn');
+			oBtn.addEventListener('click', function(){
+				alert("button here~~~");
+			}, false);
+			oBtn.addEventListener('click', function(){
+				alert("hello world!!!");
+			}, false);
+		};
+	</script>
+</head>
+<body>
+	<input type="button" id="btn" value="click me">
+</body>
+</html>

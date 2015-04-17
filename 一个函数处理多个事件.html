@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>event——一个函数处理多个事件</title>
+	<script>
+	window.onload = function() {
+		var oBtn = document.getElementById('btn');
+		var handler = function( event ) {
+			switch( event.type ) {
+				case 'click':
+					alert('click button');
+					break;
+				case 'mouseover':
+					event.target.style.backgroundColor = "red";
+					break;
+				case 'mouseout':
+					event.target.style.backgroundColor = "";
+					break;
+			}
+		};
+		oBtn.onclick = handler;
+		oBtn.onmouseover = handler;
+		oBtn.onmouseout = handler;
+	};
+	</script>
+</head>
+<body>
+	<input type="button" value="just button" id="btn">
+</body>
+</html>
