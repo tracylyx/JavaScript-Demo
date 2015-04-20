@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>选项卡</title>
+	<style>
+		ul, li { padding: 0; margin: 0; list-style: none; }
+		#table-box { width: 350px; height: 350px; margin: 0 auto; }
+		.table-nav { width: 350px; height: 35px }
+		.table-nav li:nth-child(1) { height: 35px; float: left; padding: 0px 10px; border-top: 1px solid gray; border-right: 1px solid gray; border-left: 1px solid gray; }
+		.table-nav li { height: 35px; float: left; padding: 0px 10px; border-top: 1px solid gray; border-right: 1px solid gray; line-height: 35px; cursor: pointer; }
+		.table-cont { border: 1px solid gray; height: 315px; padding: 10px; text-indent: 2em; display: none; }
+		.active { display: block; }
+		.active-btn { background: orange; }
+	</style>
+	<script src="js/jquery-1.11.1.min/index.js"></script>
+	<script src="js/t3.js"></script>
+	<script src="module/nav.js"></script>
+	<script src="module/btn.js"></script>
+</head>
+<body>
+	<div id="table-box">
+		<ul class="table-nav" data-module="nav">
+			<li class="active-btn" data-type="nav-li">table1</li>
+			<li data-type="nav-li">table2</li>
+			<li data-type="nav-li">table3</li>
+		</ul>
+		<div class="table-cont active">table 1 content</div>
+		<div class="table-cont">table 2 content</div>
+		<div class="table-cont">table 3 content</div>
+	</div>
+
+	<div id="table-btn" data-module="btn">
+		<input type="button" data-type="btn-input" value="click me">
+	</div>
+	<script>
+		Box.Application.init({
+			debug: true
+		});
+	</script>
+</body>
+</html>
