@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>浏览器事件兼容</title>
+	<script>
+	window.onload = function() {
+		var EventUtil = {
+			addHandle: function(element, type, handler) {
+				if (element.addEventListener) {
+					element.addEventListener(type, handler, false);		// 使用冒泡
+				} else if (element.attachEvent) {
+					element.attachEvent('on' + type, handler);
+				} else {
+					element['on' + type] = handler;		// Dom0级，使用将函数赋值给事件处理程序的属性
+				}
+			},
+
+			getEvent: function(event) {
+				return event ? event : window.event;
+			},
+
+			getTarget: function(event) {
+				return event.target || event.srcElement;
+			},
+
+			preventDefault: function(event) {
+				if(event.preventDefault) {
+					event.preventDefault();
+				} else {
+					event.returnvalue = false;		// IE
+				}
+			},
+
+			removeHandle: function(element, type, handler) {
+				if (element.removeEventListener) {
+					element.removeEventListener(type, handler, false);
+				} else if (element.detachEvent) {
+					element.detachEvent('on' + type, handler);
+				} else {
+					element['on' + type] = null
+				}
+			},
+
+			stopPropagation: function(event) {
+				if (event.stopPropagation) {
+					event.stopPropagation();
+				} else {
+					event.cancelBouble = true;
+				}
+			}
+		};
+	};
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
