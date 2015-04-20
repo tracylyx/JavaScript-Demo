@@ -4,7 +4,10 @@ Box.Application.addModule('nav', function(context) {
 	//-------------------------
 	// Private
 	// ------------------------
-	
+	var i,
+		moduleE1,
+		listE1,
+		boxE1;
 	// var tableNav;
 
 	//-------------------------
@@ -13,14 +16,24 @@ Box.Application.addModule('nav', function(context) {
 	
 	return {
 		init: function() {
+			moduleE1 = context.getElement();
+			listE1 = moduleE1.querySelectorAll('li');
+			boxE1 = moduleE1.querySelectorAll('.table-cont');
+		},
+		destory: function() {
+			moduleE1 = null;
+			listE1 = null;
 		},
 		onclick: function(event, element, elementType) {
-			if (elementType === "nav-li") {
-				if (element.class === 'active-btn') {
-					alert('active');
-				}	
+			// vat current = this;
+			
+			for (i = 0; i < listE1.length; i++) {
+				listE1[i].className = '';
+				boxE1[i].className = '';
+				var cur = element.index;
+				console.log(cur);
 			}
-			// console.log(element.length);
+			element.className = 'active-btn';
 		}
 	}
 });
