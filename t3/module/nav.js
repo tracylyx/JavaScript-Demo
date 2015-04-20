@@ -26,7 +26,7 @@ Box.Application.addModule('nav', function(context) {
 		},
 		onclick: function(event, element, elementType) {
 			// vat current = this;
-			
+			var _this = this;
 			for (i = 0; i < listE1.length; i++) {
 				listE1[i].className = '';
 				boxE1[i].className = '';
