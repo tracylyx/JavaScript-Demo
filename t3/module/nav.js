@@ -1,13 +1,14 @@
-Box.Application.addModule('nav', function(context) {	// context模块的触碰点
+Box.Application.addModule('nav', function(context) {	// context是模块的触碰点
 	'use strict';
 
 	//-------------------------
 	// Private
 	// ------------------------
-	var i,		// 超过一个地方使用，就在这里定义，这样可以在多出使用
+	var i,		// 超过一个地方使用，就在这里定义，这样可以在多地使用
 		moduleE1,
 		listE1,
-		boxE1;
+		boxE1,
+		index;
 	// var tableNav;
 
 	//-------------------------
@@ -27,7 +28,6 @@ Box.Application.addModule('nav', function(context) {	// context模块的触碰�
 			listE1 = null;
 		},
 		onclick: function(event, element, elementType) {
-			// vat current = this;
 			var _this = this;
 			for (i = 0; i < listE1.length; i++) {
 				listE1[i].className = '';
@@ -36,6 +36,18 @@ Box.Application.addModule('nav', function(context) {	// context模块的触碰�
 				console.log(cur);
 			}
 			element.className = 'active-btn';
+			// for (i = 0; i < listE1.length; i++) {
+			// 	listE1[i].index = i;
+			// 	this.change();
+			// }
 		}
+		// change: function() {
+		// 	for (i = 0; i < listE1.length; i++) {
+		// 		listE1[i].className = '';
+		// 		boxE1[i].style.display = 'none';
+		// 	}
+		// 	this.element.className = 'active-btn';
+		// 	// boxE1[this.index].style.display = 'none';
+		// }
 	}
 });
