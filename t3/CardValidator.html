@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Card Validator</title>
+	<style>
+		form { line-height: 30px; }
+		.label-name { width: 80px; text-align: right; }
+		.credit-card-container{ width: 300px; height: auto; margin: 50px auto; }
+	</style>
+	<script src="js/jquery-1.11.1.min/index.js"></script>
+	<script src="js/t3.js"></script>
+	<script src="module/cc-validation-form.js"></script>
+	<script src="service/credit-card.js"></script>
+</head>
+<body>
+	<div class="credit-card-container" data-module="cc-validation-form">
+	    <form>
+	        <label>
+	            <span class="label-name">CC Number:</span>
+	            <input type="text" name="cc-number" maxlength="20">
+	        </label><br>
+	        <label>
+	            <span class="label-name">Month (##):</span>
+	            <input type="text" name="cc-exp-month" maxlength="2">
+	        </label><br>
+	        <label>
+	            <span class="label-name">Year (####):</span>
+	            <input type="text" name="cc-exp-year" maxlength="4">
+	        </label><br>
+	        <input type="button" data-type="validate-btn" value="Validate Card">
+	    </form>
+	    <span class="message"></span>
+	</div>
+	<script>
+		Box.Application.init();
+	</script>
+</body>
+</html>
