@@ -33,3 +33,54 @@ var priceFormate = function (price) {
 
     return result;
 };
+
+/**
+ * @description 浅拷贝
+ * @param  object obj [对象]
+ * @return object     [复制出来的对象]
+ * @node 浅拷贝对于obj = {a: {b: 10}}这类对象是无法起到真正的拷贝作用。
+ *       对于obj = {a: 10}这类，可以正常处理
+ * @example 
+ *         var obj1 = {a: 10};
+ *         var obj2 = lightCopy(obj1);
+ *         obj2.a = 20;
+ *         console.log(obj1.a); // 10
+ * 
+ *         var obj1 = {a: {b: 10}};
+ *         var obj2 = lightCopy(obj1);
+ *         obj2.a.b = 30;
+ *         console.log(obj1.a.b); // 30 由于是浅拷贝、这时候被改变了。
+ */
+var lightCopy = function (obj) {
+    var newObj = {};
+
+    for (var attr in obj) {
+        newObj[attr] = obj[attr];
+    }
+
+    return newObj;
+};
+
+/**
+ * @description 深拷贝，使用递归的方式进行深拷贝
+ * @param  object obj [对象]
+ * @return object     [复制出来的对象，完全引用两个地址]
+ * @example 
+ *         var obj1 = {a: {b: 10}};
+ *         var obj2 = deepCopy(obj1);
+ *         obj2.a.b = 30;
+ *         console.log(obj1.a.b); // 10
+ */
+var deepCopy = function (obj) {
+    if (typeof obj != 'object') { // 递归种植条件
+        return obj;
+    }
+
+    var newObj = {};
+
+    for (var attr in obj) {
+        newObj[attr] = deepCopy(obj[attr]); // 通过递归进行深度拷贝
+    }
+
+    return newObj;
+};
