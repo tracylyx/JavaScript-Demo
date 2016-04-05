@@ -40,6 +40,8 @@ var priceFormate = function (price) {
  * @return object     [复制出来的对象]
  * @node 浅拷贝对于obj = {a: {b: 10}}这类对象是无法起到真正的拷贝作用。
  *       对于obj = {a: 10}这类，可以正常处理
+ *       underscore中的_.each() 是浅拷贝
+ *             zepto中的.each() 是浅拷贝
  * @example 
  *         var obj1 = {a: 10};
  *         var obj2 = lightCopy(obj1);
