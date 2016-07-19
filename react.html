@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="test"></div>
+
+	<!-- render方法中的return内容为什么是用() 包装 -->
+
+
+	<!-- 阮一峰React入门教程 http://www.ruanyifeng.com/blog/2015/03/react.html -->
+	<script type="text-bable">
+		// 1 ReactDOM.render() React最基本的用法，将模板转为html语言并插入到指定的dom节点上
+		ReactDOM.render(
+			<h1>Hello World!</h1>,
+			document.getElementById('test')
+		);
+
+		// 2 允许js与html代码混写。遇到< 用html解析，遇到{ 用js解析
+		var names = ['aaa', 'bbb', 'ccc'];
+
+		ReactDOM.render(
+			<div>
+				{
+					names.map(function (name) {
+						return <div>hello, {name}!</div>
+					});
+				}
+			</div>,
+			document.getElementById('test')
+		);
+
+		// 3 如果插入的变量是一个数组，则会展开这个数组的所有成员
+		var arr = [
+			<h1>Hello</h1>,
+			<h2>React</h2>
+		];
+
+		ReactDOM.render(
+			<div>{arr}</div>,
+			document.getElementById('test')
+		);
+
+		// 4 组件类的第一个字母必须大写，否则会报错。（PS 目的： 用于区别html 和 react 的标签）；
+		//	 组件类只能包含一个顶层标签，否则会报错
+		var HelloMessage = React.createClass({
+			// 所有组件都必须要有自己的render方法，从而可以用于输出组件
+			render: function () {
+				return <h1>Hello {this.props.name}</h1>;
+
+				// 什么是顶层标签，如下：有两个顶层标签h1 和 p
+				// return <h1>Hello {this.props.name}</h1><p>some others</p>;
+			}
+		});
+
+		ReactDOM.render(
+			// 模板插入<HelloMessage />时，会自动生成HelloMessage的一个实例
+			// 组件用法同html标签的用法，可以加入任意属性，且组件属性可以通过this.props 对象上获取，这个对象的属性与组件的属性一一对应，除this.props.children外
+			// 添加组件属性时，有两个点需要注意：class -> className，for -> htmlFor，因为箭头左边的是js的保留字，所以要用箭头右边作为React中的属性
+			<HelloMessage name="tracy"/>
+			document.getElementById('test');
+		);
+
+		// 5 this.props.children 属性，表示组件的所有子节点
+		var NotesList = React.createClass({
+			render: function () {
+				return (
+					<ol>
+						{
+							React.Children.map(this.props.children, function (child) {
+								return <li>{child}</li>;
+							});
+						}
+					</ol>
+				);
+			}
+		});
+
+		ReactDOM.render(
+			// 两个 span 标签通过 this.props.children 读取
+			// this.props.children 的3中可能，注意：（1）当前组件没有子节点，则为undefined；（2）如果有一个子节点，数据类型为Object；（3）如果有多个子节点，数据类型为array
+			// 为此，React提供了一个工具方法React.Children来处理this.props.children
+			<NotesList>
+				<span>Hello</span>
+				<span>React~~</span>
+			</NotesList>,
+			document.body
+		);
+
+		// 6 组件的属性可以接受任意值，字符串、对象、函数...因此，有时需要一种机制，验证别人使用组件时，提供的参数是否符合要求
+		// PropTypes
+		var MyTitle = React.createClass({
+			// propTypes https://facebook.github.io/react/docs/reusable-components.html
+			propTypes: {
+				title: React.PropTypes.string.isRequired, // PropTypes告诉React，title属性是必须的，而且它的值必须是字符创
+			},
+
+			render: function () {
+				return <h1>{this.props.title}</h1>
+			}
+		});
+
+		var data = 123;
+
+		ReactDOM.render(
+			<MyTitle title={data} />,
+			document.body
+		);
+
+		// 6~ getDefaultProps设置组件的默认值
+		var MyTitle = React.createClass({
+			// 设置属性的默认值
+			getDefaultProps: function () {
+				return {
+					title: 'Hello World'
+				};
+			},
+
+			render: function () {
+				return <h1>{this.props.title}</h1>
+			}
+		});
+
+		ReactDOM.render(
+			<MyTitle />,
+			document.body
+		);
+
+		// 虚拟DOM（virtual DOM）：组件并不是一个真实的DOM节点，而是存在于内存之中的一种数据结构
+		// 当虚拟DOM插入到文档后，才会变成真实的DOM
+		// React的设计：所有DOM的变动，都先在虚拟DOM上发生，然后再讲实际发生的变动部分反应在真实DOM上
+		// React diff： http://calendar.perfplanet.com/2013/diff/  告诉你如何极大提高网页的性能表现
+		
+		// 7 获取组件真实DOM节点。由于是真实DOM节点，所有必须要等到虚拟DOM插入后才能拿到，否则报错
+		// 通过 this.refs.[refName]来获取真实DOM节点
+		var MyComponent = React.createClass({
+			handleClick: function () {
+				this.refs.myTextInput.focus();
+			},
+
+			render: function () {
+				return (
+					<div>
+						<input type="text" ref="myTextInput"/>
+						<input type="button" value="Focus the text input" onClick={this.handleClick}/>
+					</div>
+				);
+			}
+		});
+		
+		ReactDOM.render(
+			<MyComponent />,
+			document.getElementById('test')
+		);
+
+		// 将组件看成一个状态机。组件避免不了和用户互动。
+		// 组件一个有个初始状态，然后用户互动，导致状态变化，从而触发重新渲染UI
+		
+		// this.props 和 this.state 都用于描述组件的特性，
+		// 简单区分方法：this.props 表示那些一旦定义就不在改变的特性，e.g. 设置的默认值
+		// 				 this.state 表示会随着用户互动而产生变化的特性
+		
+		// 8 this.state
+		var LikeButton = React.createClass({
+			getInitialState: function () {
+				return {
+					liked: false;
+				};
+			},
+			handleClick: function () {
+				this.setState({
+					liked: !this.state.liked
+				});
+			},
+			render: function () {
+				var text = this.state.liked ? 'like' : 'haven\`t liked';
+
+				renturn (
+					<p onClick={this.handleClick}>
+						You {text} this. Click to toggle.
+					</p>
+				);
+			}
+		});
+
+		ReactDOM.render(
+			<LikeButton />,
+			document.getElementById('test')
+		);
+
+		// 9 表单。
+		// 用户在天表单内容时，属于用户与组件的互动，所以要使用 this.states 读取
+		// 官网提供与表单相关的资料：https://facebook.github.io/react/docs/forms.html
+		var Input = React.createClass({
+			getInitialState: function () {
+				return {
+					value: 'Hello'
+				};
+			},
+			handleChange: function () {
+				this.setState({
+					value: event.target.value // 读取用户输入的值
+				});
+			},
+			render: function () {
+				var value = this.state.value;
+
+				return (
+					<div>
+						<input type="text" value={value} onChange={this.handleChange}/>
+						<p>{value}</p>
+					</div>
+				);
+			}
+		});
+
+		ReactDOM.render(
+			<Input />,
+			document.body
+		);
+
+		// 10 组件生命周期：1）mounting 已插入真实DOM 	will did
+		// 					2）updating 正在被重新渲染  will did 
+		//					3) unmounting 已移除真实DOM
+		// 每种状态都提供了will 函数在进入状态之前调用，
+		// 				   did  函数在进入状态之后调用
+		// 参考官网文档：http://facebook.github.io/react/docs/component-specs.html#lifecycle-methods
+		/*componentWillMount()
+		componentDidMount()
+		componentWillUpdate(object nextProps, object nextState)
+		componentDidUpdate(object prevProps, object prevState)
+		componentWillUnmount()
+		componentWillReceiveProps(object nextProps)：已加载组件收到新的参数时调用
+		shouldComponentUpdate(object nextProps, object nextState)：组件判断是否重新渲染时调用*/
+
+		var Hello = React.createClass({
+			getInitialState: function () {
+				return {
+					opacity: 1.0
+				}
+			},
+			// Hello组件加载以后，设置了一个定时器，每隔100ms，就重新设置组件的透明度，从而引发重新渲染
+			componentDidMount: function () {
+				this.timer = setInterval(function () {
+					var opacity = this.state.opacity;
+					
+					opacity -= 0.05;
+					
+					if (opacity < 0.1) {
+						opacity = 1.0;
+					}
+
+					this.setState({
+						opacity: opacity
+					});
+				}.bind(this), 100);
+			},
+			render: function () {
+				return (
+					<div style={{opacity: this.state.opacity}}>
+						Hello {this.props.name}
+					<div/>
+				);
+			}
+		});
+
+		// React组件样式是一个对象。第一重大括号：js语法
+		// 							第二重大括号：表示样式对象
+		// 参考官网链接：https://facebook.github.io/react/tips/inline-styles.html
+		React.render(
+			<Hello name="world"/>,
+			document.body
+		);
+
+		// 11 Ajax
+		var UserGist = React.createClass({
+			getInitialState: function () {
+				return {
+					username: '',
+					lastGistUrl: ''
+				};
+			},
+			componentDidMount: function () {
+				$.get(this.props.source, function (result) {
+					var lastGist = result[0];
+
+					if (this.isMounthed()) {
+						this.setState({
+							username: lastGist.owner.login,
+							lastGistUrl: lastGist.html_url
+						});
+					}
+				}.bind(this));
+			},
+			render: function () {
+				return (
+					<div>
+						{this.state.username}`s last gist is
+						<a href={this.state.lastGistUrl}>here</a>
+					</div>
+				);
+			}
+		});
+
+		ReactDOM.render(
+			<UserGist source="https://api.github.com/users/octocat/gists"></UserGist>,
+			document.body
+		);
+
+	</script>
+</body>
+</html>
