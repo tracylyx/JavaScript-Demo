@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>copy & paste - 自定义内容</title>
+	<style>
+		#box {
+			width: 100px;
+			height: 100px;
+			background: orange;
+		}
+		#hello {
+			width: 100px;
+			height: 100px;
+			background: blue;
+		}
+	</style>
+</head>
+<body>
+	<p>当用户通过浏览器UI（例如，使用 Ctrl/⌘+C  键盘快捷方式或从菜单中选择“复制”）启动复制操作并响应允许的document.execCommand('copy')调用时触发copy事件。</p>
+	<div id="box"></div>
+	<div id="hello"></div>
+	<script>
+		void function() {
+			document.addEventListener('copy', function(e) {
+				const URI = e && e.target && e.target.baseURI;
+				e.clipboardData.setData('text/plain', 'Hello, world! ' + URI);
+				e.preventDefault();
+			});
+			document.addEventListener('paste', function(e) {
+				e.clipboardData.getData('text/plain');
+				e.preventDefault();
+			});
+			const boxDOM = document.getElementById('box');
+			const helloDOM = document.getElementById('hello');
+			// DOM2 级事件处理程序
+			// boxDOM.addEventListener('click', (e) => {
+			// 	console.log(this);
+			// });
+			boxDOM.addEventListener('click', function(e) {
+				console.log(this);
+			});
+			// DOM0 级事件处理程序，多次绑定事件，生效的只有最后一次，即它会覆盖之前所有
+			helloDOM.onclick = function(e) {
+				console.log(this);
+			}
+			helloDOM.onclick = function(e) {
+				console.log('hello ');
+			}
+		}();
+	</script>
+</body>
+</html>
