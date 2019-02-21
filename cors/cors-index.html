@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>cors（跨域资源共享）-跨域问题解决方案之</title>
+</head>
+<body>
+	<p>cross origin resouse sharing</p>
+</body>
+<script>
+	void (function() {
+		const xhr = new XMLHttpRequest();
+		document.cookies = 'name=tracy';
+		xhr.withCredentials = true;
+		xhr.open('PUT', 'http://localhost:4000/getData', true);
+		xhr.setRequestHeader('name', 'tracy');
+		xhr.onreadystatechange = () => {
+			if (xhr.readyState === 4) {
+				if (xhr.status >= 200 && xhr.status < 300 || xht.status === 304) {
+					console.log(xhr.response);
+				}
+			}
+		};
+		xhr.send();
+	})();
+</script>
+</html>
