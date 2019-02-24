@@ -177,6 +177,7 @@
     // listen to an event in another object ... keeping track of what it's
     // listening to.
     listenTo: function(obj, name, callback) {
+        debugger;
       var listeningTo = this._listeningTo || (this._listeningTo = {});
       var id = obj._listenId || (obj._listenId = _.uniqueId('l'));
       listeningTo[id] = obj;
@@ -276,7 +277,6 @@
 
   // Allow the `Backbone` object to serve as a global event bus, for folks who
   // want global "pubsub" in a convenient place.
-  debugger;
   _.extend(Backbone, Events);
 
   // Backbone.Model
@@ -630,7 +630,11 @@
   _.each(modelMethods, function(method) {
     if (!_[method]) return;
     Model.prototype[method] = function() {
+      // 将类数组（arguments）转为数组
       var args = slice.call(arguments);
+      // unshift() 数组头部添加元素
+      // apply() 第一个参数为this对象；第二个参数必须是一个数组
+      //  this.attributes ???
       args.unshift(this.attributes);
       return _[method].apply(_, args);
     };
@@ -1242,7 +1246,10 @@
   Backbone.sync = function(method, model, options) {
     var type = methodMap[method];
 
-    // Default options, unless specified.
+    // Default options, unless specified.（除非另有说明）
+      // _.defaults() 用来处理对象中出现undefined值的属性，如果遇到了，就用第一个遇到的相同属性的值作为它的值。
+      // 如果没遇到，那就依旧是undefined
+      // 反正就是用来给undefined赋值的
     _.defaults(options || (options = {}), {
       emulateHTTP: Backbone.emulateHTTP,
       emulateJSON: Backbone.emulateJSON
@@ -1308,8 +1315,8 @@
     'read':   'GET'
   };
 
-  // Set the default implementation of `Backbone.ajax` to proxy through to `$`.
-  // Override this if you'd like to use a different library.
+  // Set the default implementation of `Backbone.ajax` to proxy through to `$`.（通过代理到$来实现Backbone.ajax的默认实现）
+  // Override this if you'd like to use a different library.（如果你是用其他的库，你可以复写它。）
   Backbone.ajax = function() {
     return Backbone.$.ajax.apply(Backbone.$, arguments);
   };
@@ -1697,7 +1704,7 @@
   // Helpers
   // -------
 
-  // Helper function to correctly set up the prototype chain, for subclasses.
+  // Helper function to correctly set up（建立） the prototype chain, for subclasses.
   // Similar to `goog.inherits`, but uses a hash of prototype properties and
   // class properties to be extended.
   var extend = function(protoProps, staticProps) {
@@ -1707,6 +1714,7 @@
     // The constructor function for the new subclass is either defined by you
     // (the "constructor" property in your `extend` definition), or defaulted
     // by us to simply call the parent's constructor.
+    // 如果 protoProps 中有 constructor，就把它赋值给子类。若无，则执行父类的构造函数
     if (protoProps && _.has(protoProps, 'constructor')) {
       child = protoProps.constructor;
     } else {
