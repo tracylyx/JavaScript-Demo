@@ -1,7 +1,7 @@
 Backbone.js 为复杂WEB应用程序提供模型models、集合collections、视图views的结构。
-模型用于绑定键值数据和自定义事件
-集合富有可枚举的丰富API
-视图可以声明事件处理函数，并通过RESTful JSON接口连接到应用程序
+模型-用于绑定键值数据和自定义事件
+集合-富有可枚举的丰富API
+视图-可以声明事件处理函数，并通过RESTful JSON接口连接到应用程序
 
 数据结构：models、collections
 用户接口：views、urls
