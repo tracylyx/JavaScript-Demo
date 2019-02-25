@@ -177,7 +177,7 @@
     // listen to an event in another object ... keeping track of what it's
     // listening to.
     listenTo: function(obj, name, callback) {
-        debugger;
+      // listeningTo 和 this._listeningTo 指向相同的内存地址，所以后边listeningTo[id]的赋值也会体现在this._listeningTo上
       var listeningTo = this._listeningTo || (this._listeningTo = {});
       var id = obj._listenId || (obj._listenId = _.uniqueId('l'));
       listeningTo[id] = obj;
