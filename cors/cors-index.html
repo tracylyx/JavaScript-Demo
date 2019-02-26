@@ -16,7 +16,7 @@
 		xhr.setRequestHeader('name', 'tracy');
 		xhr.onreadystatechange = () => {
 			if (xhr.readyState === 4) {
-				if (xhr.status >= 200 && xhr.status < 300 || xht.status === 304) {
+				if (xhr.status >= 200 && xhr.status < 300 || xhr.status === 304) {
 					console.log(xhr.response);
 				}
 			}

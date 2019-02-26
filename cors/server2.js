@@ -5,10 +5,12 @@ const app = express();
 
 const whiteList = ['http://localhost:3000'];
 app.use((req, res, next) => {
-	const origin = req.headers.origin;
+	const origin = req.headers.host;
+	console.log(req.headers);
+	console.log(origin);
 	if (whiteList.includes(origin)) {
 		// 设置哪个源可以访问我
-		res.setHeader('Access-Control-Allow-Origin', origin);
+		res.setHeader('Access-Control-Allow-Origin', '*');
 		// 允许携带哪个头访问我
 		res.setHeader('Access-Control-Allow-Headers', 'name');
 		// 允许哪个方法访问我
