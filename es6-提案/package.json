@@ -1,0 +1,13 @@
+{
+  "name": "",
+  "version": "",
+  "scripts": {
+    "start": "babel test.js --out-file build.js",
+    "stage1": "babel proposal.js",
+    "estype": "babel --plugins transform-es2015-arrow-functions test.js -o build.js"
+  },
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-stage-1": "^6.24.1"
+  }
+}
