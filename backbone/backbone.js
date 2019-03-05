@@ -1318,6 +1318,9 @@
   // Set the default implementation of `Backbone.ajax` to proxy through to `$`.（通过代理到$来实现Backbone.ajax的默认实现）
   // Override this if you'd like to use a different library.（如果你是用其他的库，你可以复写它。）
   Backbone.ajax = function() {
+    //   var args = Array.prototype.slice.call(arguments);
+    //   return Backbone.$.ajax(...args);
+      // 这样些 就是为了透传参数吗？
     return Backbone.$.ajax.apply(Backbone.$, arguments);
   };
 
