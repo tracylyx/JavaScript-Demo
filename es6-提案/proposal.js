@@ -1,17 +1,12 @@
-const f = () => {
-	return 2;
-}
-
-// {
-// 	let t = f();
-// 	t * t +1;
-// }
-
-// console.log(t);
-
-const doExpress = do{
-	let t = f();
+const doSatement = do {
+	let t = 2;
 	t = t * t +1;
 }
 
-console.log(t);
+let doExpress = do {
+  if(x > 10) {
+    'big';
+  } else {
+    'small';
+  }
+};

@@ -6,6 +6,7 @@
 ### 参考链接
 - [babel官网](https://babel.docschina.org/docs/en/presets)
 - [提案目前处在的各个阶段](https://github.com/tc39/proposals)
+- [you don`t no JS](https://github.com/getify/You-Dont-Know-JS/blob/master/types%20%26%20grammar/ch5.md#statement-completion-values)
 
 ### ES6提案
 - 什么提案。它由[tc39](https://github.com/tc39)这个组织在维护
@@ -18,3 +19,11 @@ stage 4（结束: 将被添加到下一个年度版本中）
 - stage X presets 中的任何转换都是对未被批准发布为 Javascript 的部分（如 ES6 / ES2015）的更改
 - 目前提案的进度情况可在这里[查询](https://github.com/tc39/proposals)
 - 这些提案可能会有所变化，因此请谨慎使用，特别是对于第3阶段之前的提案
+
+### PPT内容预览
+- 9个新提案
+- do表达式，大致的想法：让语句变成表达式，在不需要使用函数、retrun的方式返回值
+	降低使用eval()的想法
+- Statements are sentences 声明是一个语句
+  expressions are phrases 表达式是一个短语
+  operators are conjunctions/punctuation 操作是连接词货标点符号
