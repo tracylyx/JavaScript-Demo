@@ -3,7 +3,9 @@
   "version": "",
   "scripts": {
     "start": "babel test.js --out-file build.js",
-    "stage1": "babel proposal.js",
+    "do": "babel 01do.js",
+    "throw": "babel 02throw.js",
+    "chain": "babel 03chain.js",
     "estype": "babel --plugins transform-es2015-arrow-functions test.js -o build.js"
   },
   "dependencies": {
@@ -11,7 +13,9 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-do-expressions": "^7.2.0",
+    "@babel/plugin-proposal-throw-expressions": "^7.2.0",
     "babel-preset-stage-0": "^6.24.1",
-    "babel-preset-stage-1": "^6.24.1"
+    "babel-preset-stage-1": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1"
   }
 }

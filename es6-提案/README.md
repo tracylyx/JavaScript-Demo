@@ -7,6 +7,7 @@
 - [babel官网](https://babel.docschina.org/docs/en/presets)
 - [提案目前处在的各个阶段](https://github.com/tc39/proposals)
 - [you don`t no JS](https://github.com/getify/You-Dont-Know-JS/blob/master/types%20%26%20grammar/ch5.md#statement-completion-values)
+- [TODO只看了一半，编码方式](https://blog.csdn.net/hezh1994/article/details/78899683)
 
 ### ES6提案
 - 什么提案。它由[tc39](https://github.com/tc39)这个组织在维护
@@ -27,3 +28,11 @@ stage 4（结束: 将被添加到下一个年度版本中）
 - Statements are sentences 声明是一个语句
   expressions are phrases 表达式是一个短语
   operators are conjunctions/punctuation 操作是连接词货标点符号
+- ?. 短路机制，一旦右侧判断是否为null 为true，就不会继续执行右侧表达式；右侧不允许是十进制数
+- 在计算机种中，1 字节对应 8 位二进制数，而每位二进制数有 0、1 两种状态，因此 1 字节可以组合出 256 种状态
+  美国人于是制定了一套编码（其实就是个字典），描述英语中的字符和这 8 位二进制数的对应关系，这被称为 ASCII 码。在美国用128个字符编码
+  但在其他国家不够用，因此会拿最高位来使用。有于不同国家的字符集不同，因此会出现同一个码点表示的字符不同。
+  一个码点（也就是 8 位二进制数）
+  亚洲语言有更多的字符需要被存储，一个字节已经不够用了。于是，人们开始使用两个字节来存储字符。
+  应该提出一种标准方案来展示世界上所有语言中的所有字符，出于这个目的，Unicode诞生了
+   Unicode 给所有的字符指定了一个数字用来表示该字符
