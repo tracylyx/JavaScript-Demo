@@ -6,8 +6,12 @@
 ### 参考链接
 - [babel官网](https://babel.docschina.org/docs/en/presets)
 - [提案目前处在的各个阶段](https://github.com/tc39/proposals)
-- [you don`t no JS](https://github.com/getify/You-Dont-Know-JS/blob/master/types%20%26%20grammar/ch5.md#statement-completion-values)
+- [ES新特性的支持情况](https://kangax.github.io/compat-table/es6/)
+- [babel stage个阶段介绍](https://www.vanadis.cn/2017/03/18/babel-stage-x/)
+- [you dont no JS](https://github.com/getify/You-Dont-Know-JS/blob/master/types%20%26%20grammar/ch5.md#statement-completion-values)
 - [TODO只看了一半，编码方式](https://blog.csdn.net/hezh1994/article/details/78899683)
+
+
 
 ### ES6提案
 - 什么提案。它由[tc39](https://github.com/tc39)这个组织在维护
@@ -36,3 +40,15 @@ stage 4（结束: 将被添加到下一个年度版本中）
   亚洲语言有更多的字符需要被存储，一个字节已经不够用了。于是，人们开始使用两个字节来存储字符。
   应该提出一种标准方案来展示世界上所有语言中的所有字符，出于这个目的，Unicode诞生了
    Unicode 给所有的字符指定了一个数字用来表示该字符
+- JSON超集
+- 函数的部分执行 partial application
+	...只会被采集一次，如果函数的部分执行使用了多个...，那么每个...的值都将相同。
+- 管道机制：
+	把 前一个操作 的 值 传递给 后一个操作
+	提高可读性(可以把嵌套的函数，写成从左到右的链式表达式。)
+
+#### babel7的变化
+- 使用@babel的命名空管理依赖包
+- 任何年度的preset使用@babel/env取代
+- 删除了Stage的preset，需要用户明确地直接使用单独的提案插件（低于Stage 4 的提案）。默认情况下，从@babel/polyfill中删除提案
+- 对一些提案重命名由-proposal替换--transform

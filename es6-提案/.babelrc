@@ -1,4 +1,3 @@
 {
-	"presets": ["stage-2", "stage-1", "stage-0"],
-	"plugins": ["@babel/plugin-proposal-throw-expressions"]
+	"presets": ["stage-2"]
 }
