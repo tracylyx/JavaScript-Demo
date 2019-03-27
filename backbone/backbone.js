@@ -283,16 +283,20 @@
   // --------------
 
   // Backbone **Models** are the basic data object in the framework --
+  // Models 是框架中最基础的一个数据结构
   // frequently representing a row in a table in a database on your server.
+  // 常用来展示服务端数据库表中的一行
   // A discrete chunk of data and a bunch of useful, related methods for
   // performing computations and transformations on that data.
-
+  //  一个离散的数据块，一系列有用的、相关的方法用来更好的计算、转换这些数据
   // Create a new model with the specified attributes. A client id (`cid`)
   // is automatically generated and assigned for you.
+  // 使用具体的属性创建一个模型。并为你自动生成一个cid。
+  // 构造函数
   var Model = Backbone.Model = function(attributes, options) {
     var attrs = attributes || {};
     options || (options = {});
-    this.cid = _.uniqueId('c');
+    this.cid = _.uniqueId('c'); // 通过underscore方法生成cid
     this.attributes = {};
     if (options.collection) this.collection = options.collection;
     if (options.parse) attrs = this.parse(attrs, options) || {};
@@ -353,12 +357,18 @@
 
     // Set a hash of model attributes on the object, firing `"change"`. This is
     // the core primitive operation of a model, updating the data and notifying
-    // anyone who needs to know about the change in state. The heart of the beast.
+    // anyone who needs to know about the change in state. The heart of the beast（野兽）.
+    // 在对象中设置模型属性的哈希（？）触发“change”。它是一个模型的核型原始操作，更新数据和通知需要知道关于状态变更的任何人。
+    /**
+     * set('name', 'tracy', {})
+     * set({'name': 'tracy'}, {})
+     */
     set: function(key, val, options) {
       var attr, attrs, unset, changes, silent, changing, prev, current;
       if (key == null) return this;
 
       // Handle both `"key", value` and `{key: value}` -style arguments.
+      // attrs 是一个对象，key value对应参数的key和val
       if (typeof key === 'object') {
         attrs = key;
         options = val;
@@ -611,6 +621,7 @@
     },
 
     // Run validation against the next complete set of model attributes,
+    // 针对下一组完整的数据模型属性进行校验
     // returning `true` if all is well. Otherwise, fire an `"invalid"` event.
     _validate: function(attrs, options) {
       if (!options.validate || !this.validate) return true;
