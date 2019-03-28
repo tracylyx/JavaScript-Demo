@@ -1,6 +1,6 @@
 // 总结：
-// 1 Backbone是依赖zepto、underscore库的，代码中可以看到很多Backbone通过代理的方式拿到这两个库中的方法，放在自己的原型对象或这Backbone对象上
-// 2 MVC Module View Controller 都extend 定义的Events对象的方法，基本的on off trigger等等
+// 1 Backbone是依赖Jquery、underscore库的，代码中可以看到很多Backbone通过代理的方式拿到这两个库中的方法，放在自己的原型对象或这Backbone对象上
+// 2 MVC Module View  Controller 都extend 定义的Events对象的方法，基本的on off trigger等等
 
 // 为一个方法的原型对象设置方法（代理），这些方法是underscore库中的方法
 function Foo() {};
@@ -52,7 +52,7 @@ o = {
 };
 _.pick(o, ['b', 'd']);
 ret = {};
-// 将指定的对象合并到this对象下
+// 将制定的对象合并到this对象下
 _.extend(this, _.pick(o, ['b', 'd']));
 
 

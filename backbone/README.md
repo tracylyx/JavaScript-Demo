@@ -13,6 +13,11 @@ DOM 处理依赖Backbone.View
 当模型改变了，视图会自动更新
 任何时候只要UI事件引起模型内的属性变化，模型会触发"change"事件
 
+### Model
+- 应用程序原始数据的精心抽象
+- 包含了工具库、事件方法
+- Model本身是一个构造函数，所以可以通过new的方式创建实例
+
 源码分析参考文档：
 - https://segmentfault.com/a/1190000006697372#articleHeader4
 - https://github.com/aircloud/backboneAnalyze/blob/master/src/backbone.js
