@@ -365,7 +365,7 @@
      */
     set: function(key, val, options) {
       var attr, attrs, unset, changes, silent, changing, prev, current;
-      if (key == null) return this;
+      if (key == null) return this; // this 为当前实例
 
       // Handle both `"key", value` and `{key: value}` -style arguments.
       // attrs 是一个对象，key value对应参数的key和val
@@ -382,6 +382,7 @@
       if (!this._validate(attrs, options)) return false;
 
       // Extract attributes and options.
+      // 提取属性和options
       unset           = options.unset;
       silent          = options.silent;
       changes         = [];
