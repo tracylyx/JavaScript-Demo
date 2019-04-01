@@ -1741,6 +1741,7 @@
 
     // Set the prototype chain to inherit from `parent`, without calling
     // `parent`'s constructor function.
+    // Surrogate 代理
     var Surrogate = function(){ this.constructor = child; };
     Surrogate.prototype = parent.prototype;
     child.prototype = new Surrogate;
