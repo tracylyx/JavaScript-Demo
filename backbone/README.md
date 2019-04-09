@@ -18,7 +18,7 @@ DOM 处理依赖Backbone.View
 - 文件中 (?) 表示不明白
 
 ### Model
-- 应用程序原始数据的精心抽象
+- 保存应用程序数据的地方。应用程序原始数据的精心抽象
 - 包含了工具库、事件方法
 - Model本身是一个构造函数，所以可以通过new的方式创建实例
 
@@ -32,3 +32,4 @@ DOM 处理依赖Backbone.View
 源码分析参考文档：
 - https://segmentfault.com/a/1190000006697372#articleHeader4
 - https://github.com/aircloud/backboneAnalyze/blob/master/src/backbone.js
+- [叶小钗](https://www.cnblogs.com/yexiaochai/tag/Backbone/)

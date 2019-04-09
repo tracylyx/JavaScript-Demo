@@ -1,5 +1,5 @@
 // 总结：
-// 1 Backbone是以来Jquery、underscore库的，代码中可以看到很多Backbone通过代理的方式拿到这两个库中的方法，放在自己的原型对象或这Backbone对象上
+// 1 Backbone是依赖Jquery、underscore库的，代码中可以看到很多Backbone通过代理的方式拿到这两个库中的方法，放在自己的原型对象或这Backbone对象上
 // 2 MVC Module View  Controller 都extend 定义的Events对象的方法，基本的on off trigger等等
 
 // 为一个方法的原型对象设置方法（代理），这些方法是underscore库中的方法
@@ -72,7 +72,7 @@ Backbone.say();
 obj.say();
 
 // underscore中result()的实现
-// 在for循环中，如果不满足条件就用length赋值给循环变量来结束循环
+// [Tip] 在for循环中，如果不满足条件就用length赋值给循环变量来结束循环
 _.result = function(obj, path, fallback) {
     if (!_.isArray(path)) path = [path];
     var length = path.length;
