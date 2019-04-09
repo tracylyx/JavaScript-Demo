@@ -124,6 +124,7 @@ var extend = function(protoProps, staticProps) {
     return child;
 };
 
+// ============ 整体分析 =============
 // backbone 中的整体结构
 (function(root, factory) {
     root.Backbone = factory(root, {}, _, $);
@@ -132,6 +133,7 @@ var extend = function(protoProps, staticProps) {
 
     // 事件：on once off trigger listenTo
     //      listenToOnce stopListening
+    // （摘）可以和任意对象合体，将方法赋值到其他对象或原型上，合体后的对象可以自定义事件，提供如下方法自定义事件
     var Events = Backbone.Events = {
         on: function () {},
         once: function () {},
@@ -143,13 +145,17 @@ var extend = function(protoProps, staticProps) {
     };
     _.extend(Backbone, Events);
 
-    var Model = Backbone.Model = function () {};
-    // 给Model原型上添加方法
-    _.extend(Model.prototype, Events, {});
+    var Model = Backbone.Model = function () {
+        // 各种方法的实现
+    };
+    // （给Model原型上添加Events对象中的方法）添加自定义事件模块
+    _.extend(Model.prototype, Events, {
+        // 各种方法的实现
+    });
     // 给Model的原型对象上添加上一些underscore方法
     var modelMethod = ['keys', 'values', 'paris', 'invert', 'pick', 'omit', 'chain', 'isEmpty'];
     _.each(modelMethod, function(method) {
-        Model.prototype[method] = _[method].call(_);
+        Model.prototype[method] = _[method].call(_); // 执行时，this指向_
     });
 
     var Collection = Backbone.Collection = function() {};

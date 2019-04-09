@@ -78,6 +78,7 @@
   //     object.trigger('expand');
   //
   // 观察者模式
+  // 自定义事件模块
   var Events = Backbone.Events = {
 
     // Bind an event to a `callback` function. Passing `"all"` will bind
@@ -294,6 +295,7 @@
   // 使用具体的属性创建一个模型。并为你自动生成一个cid。
   // 构造函数
   var Model = Backbone.Model = function(attributes, options) {
+    // 这些挂在this上的属性，都会成为实例的属性。=> 因为this即为实例
     var attrs = attributes || {};
     options || (options = {});
     this.cid = _.uniqueId('c'); // 通过underscore方法生成cid
@@ -601,6 +603,7 @@
 
     // **parse** converts a response into the hash of attributes to be `set` on
     // the model. The default implementation is just to pass the response along.
+    // 将响应的内容设置到模型上
     parse: function(resp, options) {
       return resp;
     },
