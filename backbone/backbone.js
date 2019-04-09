@@ -273,6 +273,7 @@
   };
 
   // Aliases for backwards compatibility.
+  // 为了向后兼容
   Events.bind   = Events.on;
   Events.unbind = Events.off;
 
@@ -309,6 +310,7 @@
   };
 
   // Attach all inheritable methods to the Model prototype.
+  // 将所有可继承的方法放置在prototype上，包括Events对象上的方法
   _.extend(Model.prototype, Events, {
 
     // A hash of attributes whose current and previous value differ.
@@ -323,6 +325,7 @@
 
     // Initialize is an empty function by default. Override it with your own
     // initialization logic.
+    // 默认是一个空函数。你可以在自己的实例中重写它为自己的初始化逻辑
     initialize: function(){},
 
     // Return a copy of the model's `attributes` object.
@@ -437,6 +440,7 @@
 
     // Remove an attribute from the model, firing `"change"`. `unset` is a noop
     // if the attribute doesn't exist.
+    // 从模型上移除一个属性，并触发“change”事件
     unset: function(attr, options) {
       return this.set(attr, void 0, _.extend({}, options, {unset: true}));
     },
@@ -699,6 +703,7 @@
     },
 
     // Proxy `Backbone.sync` by default.
+    // 默认情况下，代理 Backbone.sync
     sync: function() {
       return Backbone.sync.apply(this, arguments);
     },
@@ -832,10 +837,10 @@
       return singular ? models[0] : models;
     },
 
-    // When you have more items than you want to add or remove individually,
+    // When you have more items than you want to add or remove individually（逐个地）,
     // you can reset the entire set with a new list of models, without firing
-    // any granular `add` or `remove` events. Fires `reset` when finished.
-    // Useful for bulk operations and optimizations.
+    // any granular（粒状） `add` or `remove` events. Fires `reset` when finished.
+    // Useful for bulk（块、体积） operations（操作） and optimizations（优化）.
     reset: function(models, options) {
       options = options ? _.clone(options) : {};
       for (var i = 0, length = this.models.length; i < length; i++) {
@@ -932,7 +937,9 @@
     // collection when they arrive. If `reset: true` is passed, the response
     // data will be passed through the `reset` method instead of `set`.
     fetch: function(options) {
+      // _.clone() 用于浅拷贝（即只拷贝了引用地址）
       options = options ? _.clone(options) : {};
+      // void 0 => undefined
       if (options.parse === void 0) options.parse = true;
       var success = options.success;
       var collection = this;
@@ -984,6 +991,8 @@
 
     // Private method to reset all internal state. Called when the collection
     // is first initialized or reset.
+    // 重置所有内部状态。
+    // 当集合第一次被初始化或者是重置的时候被唤起
     _reset: function() {
       this.length = 0;
       this.models = [];
@@ -1335,7 +1344,7 @@
   Backbone.ajax = function() {
     //   var args = Array.prototype.slice.call(arguments);
     //   return Backbone.$.ajax(...args);
-      // 这样些 就是为了透传参数吗？
+      // 这样写 就是为了透传参数吗？
     return Backbone.$.ajax.apply(Backbone.$, arguments);
   };
 
@@ -1353,6 +1362,7 @@
 
   // Cached regular expressions for matching named param parts and splatted
   // parts of route strings.
+  // 缓存正则表达式
   var optionalParam = /\((.*?)\)/g;
   var namedParam    = /(\(\?)?:\w+/g;
   var splatParam    = /\*\w+/g;
