@@ -1735,6 +1735,8 @@
   // Helper function to correctly set up（建立） the prototype chain, for subclasses.
   // Similar to `goog.inherits`, but uses a hash of prototype properties and
   // class properties to be extended.
+  // 用语扩展原型属性和静态属性
+  // 创建自定义的模型、试图、集合、路由类 ===> (?)没明白
   var extend = function(protoProps, staticProps) {
     var parent = this;
     var child;

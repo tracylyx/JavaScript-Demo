@@ -33,3 +33,7 @@ DOM 处理依赖Backbone.View
 - https://segmentfault.com/a/1190000006697372#articleHeader4
 - https://github.com/aircloud/backboneAnalyze/blob/master/src/backbone.js
 - [叶小钗](https://www.cnblogs.com/yexiaochai/tag/Backbone/)
+- [阮一峰-MVC框架与Backbone.js](https://javascript.ruanyifeng.com/advanced/backbonejs.html)
+- [Why Backbone.js and ES6 Classes Don`t Mix ***](https://benmccormick.org/2015/04/07/es6-classes-and-backbone-js)
+- [MVC\MVP\MVVM的图示](http://www.ruanyifeng.com/blog/2015/02/mvcmvp_mvvm.html)
+- [backbone源码解读 ***](https://www.jianshu.com/p/32feb0f9020e)
