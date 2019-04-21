@@ -168,7 +168,7 @@
       var args = slice.call(arguments, 1);
       if (!eventsApi(this, 'trigger', name, args)) return this;
       var events = this._events[name];
-      var allEvents = this._events.all;
+      var allEvents = this._events.all; // ‘all’事件
       if (events) triggerEvents(events, args);
       if (allEvents) triggerEvents(allEvents, arguments);
       return this;
@@ -181,7 +181,9 @@
     listenTo: function(obj, name, callback) {
       // listeningTo 和 this._listeningTo 指向相同的内存地址，所以后边listeningTo[id]的赋值也会体现在this._listeningTo上
       var listeningTo = this._listeningTo || (this._listeningTo = {});
+      // 创建唯一的id
       var id = obj._listenId || (obj._listenId = _.uniqueId('l'));
+      // 通过唯一的id来对应一个被监听的对象
       listeningTo[id] = obj;
       if (!callback && typeof name === 'object') callback = this;
       obj.on(name, callback, this);
@@ -261,6 +263,7 @@
   // A difficult-to-believe, but optimized internal dispatch function for
   // triggering events. Tries to keep the usual cases speedy (most internal
   // Backbone events have 3 arguments).
+  // 为事件触发做优化内部调度函数。通常backbone的内部事件有三个参数
   var triggerEvents = function(events, args) {
     // debugger args => trigger函数接收的除第一个参数之外的参数列表
     var ev, i = -1, l = events.length, a1 = args[0], a2 = args[1], a3 = args[2];
@@ -707,6 +710,7 @@
     // Proxy `Backbone.sync` by default.
     // 默认情况下，代理 Backbone.sync
     sync: function() {
+      // 调用Backbone.LocalStorage中的Backbone.getSyncMethod
       return Backbone.sync.apply(this, arguments);
     },
 
@@ -946,11 +950,13 @@
       var success = options.success;
       var collection = this;
       options.success = function(resp) {
+        // 给集合重置或设置模型集合
         var method = options.reset ? 'reset' : 'set';
         collection[method](resp, options);
         if (success) success(collection, resp, options);
         collection.trigger('sync', collection, resp, options);
       };
+      // 添加错误的处理函数到this上
       wrapError(this, options);
       return this.sync('read', this, options);
     },
@@ -1118,6 +1124,7 @@
   var viewOptions = ['model', 'collection', 'el', 'id', 'attributes', 'className', 'tagName', 'events'];
 
   // Set up all inheritable **Backbone.View** properties and methods.
+  // 设置所有可继承的属性和方法
   _.extend(View.prototype, Events, {
 
     // The default `tagName` of a View's element is `"div"`.
@@ -1232,10 +1239,12 @@
     // matching element, and re-assign it to `el`. Otherwise, create
     // an element from the `id`, `className` and `tagName` properties.
     _ensureElement: function() {
+      // 如果el不存在
       if (!this.el) {
+        // 获取attributes
         var attrs = _.extend({}, _.result(this, 'attributes'));
-        if (this.id) attrs.id = _.result(this, 'id');
-        if (this.className) attrs['class'] = _.result(this, 'className');
+        if (this.id) attrs.id = _.result(this, 'id'); // 取id
+        if (this.className) attrs['class'] = _.result(this, 'className'); // 取class
         this.setElement(this._createElement(_.result(this, 'tagName')));
         this._setAttributes(attrs);
       } else {
@@ -1738,7 +1747,8 @@
   // Similar to `goog.inherits`, but uses a hash of prototype properties and
   // class properties to be extended.
   // 用语扩展原型属性和静态属性
-  // 创建自定义的模型、试图、集合、路由类 ===> (?)没明白
+  // 创建自定义的模型、试图、集合、路由类 ===> 就是继承了原Model View Collection，即生成对应的子类
+  // 我们可以添加自定义的原型属性、静态属性
   var extend = function(protoProps, staticProps) {
     var parent = this;
     var child;
@@ -1758,17 +1768,20 @@
 
     // Set the prototype chain to inherit from `parent`, without calling
     // `parent`'s constructor function.
-    // Surrogate 代理
+    // 设置原型链继承父类，不通过调用父类的构造函数
+    // 而是通过 Surrogate 代理
     var Surrogate = function(){ this.constructor = child; };
     Surrogate.prototype = parent.prototype;
     child.prototype = new Surrogate;
 
     // Add prototype properties (instance properties) to the subclass,
     // if supplied.
+    // 添加原型属性到原型链上
     if (protoProps) _.extend(child.prototype, protoProps);
 
     // Set a convenience property in case the parent's prototype is needed
     // later.
+    // 设置父类原型对象到子类上，以防后边的需要
     child.__super__ = parent.prototype;
 
     return child;

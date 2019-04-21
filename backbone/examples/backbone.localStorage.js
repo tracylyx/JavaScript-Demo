@@ -76,6 +76,7 @@ _.extend(Backbone.LocalStorage.prototype, {
   },
 
   // Return the array of all models currently in storage.
+  // 返回当前本地的所有模型
   findAll: function() {
     return _(this.records).chain()
       .map(function(id){
