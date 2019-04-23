@@ -19,14 +19,120 @@
 	</style>
 </head>
 <body>
-	<div id="wrapper"></div>
+	<div id="wrapper">
+		<div>
+			<input placeholder="请输入书名" id="name" type="text">
+			<input placeholder="请输入作者名字" id="author" type="text">
+			<button id="add">新增</button>
+		</div>
+		<ul id="show">
+
+		</ul>
+	</div>
+	<script type="text/template" id="book-item">
+		<p>书名：<%- name %></p>
+		<p>作者：<%- author %></p>
+		<button id="del">删除</button>
+		<br />
+	</script>
 	<script>
-		var User = Backbone.Model.extend({
-			initilize: function(name) {
-				this.set(name);
-			}
-		});
+		// var Book = Backbone.Model.extend({
+		// 	initialize : function(){
+		// 		console.log('Book model init...');
+		// 	},
+		// 	defaults : function() {
+		// 		return {
+		// 			name : '',
+		// 			author : ''
+		// 		}
+		// 	}
+		// });
+
+		// var Bookshelf = Backbone.Collection.extend({
+		// 	model : Book,
+		// 	initialize : function(){
+		// 		console.log('Bookshel collection init...');
+		// 	}
+		// });
+
+		// var tracyBookShelf = new Bookshelf;
 		
+		
+
+		// var AppView = Backbone.View.extend({
+		// 	el: $('#wrapper'),
+		// 	initialize: function() {
+		// 		consoel.log('app view init...');
+		// 	}
+		// });
+
+		// var app = new AppView;
+		$(function() {
+			var Book = Backbone.Model.extend({
+			defaults: function() {
+				return {
+					name:'',
+					author: ''
+				};
+			}
+			});
+
+			var BookShelf = Backbone.Collection.extend({
+				model: new Book
+			});
+
+			var tracyBookShelf = new BookShelf;
+
+			var BookShelfView = Backbone.View.extend({
+				tagName: 'li',
+				template: _.template($('#book-item').html()),
+				render: function() {
+					this.$el.html(this.template(this.model.toJSON()))
+				}
+			});
+
+			var AppView = Backbone.View.extend({
+				el: 'body',
+				template: _.template(document.body.innerHTML),
+				events: {
+					'click #add': 'addData'
+				},
+				initialize: function() {
+					this.listenTo(tracyBookShelf, 'add', this.addOne);
+					this.$name = $('#name');
+					this.$author = $('#author');
+				},
+				render: function() {
+					this.$el.html(this.template(this.model.attributes));
+					return this;
+				},
+				addData: function() {
+					var name = $.trim(this.$name.val());
+					var author = $.trim(this.$author.val());
+					
+					if (!name || !author) return;
+
+					tracyBookShelf.create({
+						name,
+						author
+					});
+
+					console.log({
+						name,
+						author
+					});
+
+					this.$name.val('');
+					this.$author.val('');
+				},
+				addOne: function(data) {
+					var bookView = new BookShelfView({model: data});
+					this.$('show').append(bookView.render().el);
+				}
+			});
+
+			var app = new AppView();
+		});
 	</script>
 </body>
 </html>

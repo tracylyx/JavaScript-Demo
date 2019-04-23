@@ -964,6 +964,7 @@
     // Create a new instance of a model in this collection. Add the model to the
     // collection immediately, unless `wait: true` is passed, in which case we
     // wait for the server to agree.
+    // 新增一个model到集合中
     create: function(model, options) {
       options = options ? _.clone(options) : {};
       if (!(model = this._prepareModel(model, options))) return false;
